@@ -16,7 +16,7 @@ public class EstadoCivilController {
     private EstadoCivilService estadoCivilService;
 
     @GetMapping("/civil")
-    public List<EstadoCivil> getActividadesEconomicas() {
+    public List<EstadoCivil> getEstadoCivil() {
         return estadoCivilService.findAll();
     }
 }

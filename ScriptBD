@@ -1,0 +1,117 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema davivienda
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema davivienda
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `davivienda` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `davivienda` ;
+
+-- -----------------------------------------------------
+-- Table `davivienda`.`actividades_economicas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `davivienda`.`actividades_economicas` (
+  `id_actividad_economica` BIGINT NOT NULL AUTO_INCREMENT,
+  `descripcion` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_actividad_economica`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `davivienda`.`estado_civil`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `davivienda`.`estado_civil` (
+  `id_estado_civil` BIGINT NOT NULL AUTO_INCREMENT,
+  `descripcion` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_estado_civil`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `davivienda`.`forma_pago`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `davivienda`.`forma_pago` (
+  `id_forma_pago` BIGINT NOT NULL AUTO_INCREMENT,
+  `descripcion` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_forma_pago`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `davivienda`.`persona`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `davivienda`.`persona` (
+  `id_persona` BIGINT NOT NULL AUTO_INCREMENT,
+  `apellidos` VARCHAR(255) NULL DEFAULT NULL,
+  `dui` VARCHAR(255) NULL DEFAULT NULL,
+  `nit` VARCHAR(255) NULL DEFAULT NULL,
+  `nombres` VARCHAR(255) NULL DEFAULT NULL,
+  `sexo` VARCHAR(255) NULL DEFAULT NULL,
+  `id_actividad_economica` BIGINT NULL DEFAULT NULL,
+  `id_estado_civil` BIGINT NULL DEFAULT NULL,
+  `actividad_economica` INT NULL DEFAULT NULL,
+  `estado_civil` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`id_persona`),
+  INDEX `FK3m3qgp1ymqxnua293ude6d7dp` (`id_actividad_economica` ASC) VISIBLE,
+  INDEX `FKd306rsj7x0jo60t9vfm7cqqwt` (`id_estado_civil` ASC) VISIBLE,
+  CONSTRAINT `FK3m3qgp1ymqxnua293ude6d7dp`
+    FOREIGN KEY (`id_actividad_economica`)
+    REFERENCES `davivienda`.`actividades_economicas` (`id_actividad_economica`),
+  CONSTRAINT `FKd306rsj7x0jo60t9vfm7cqqwt`
+    FOREIGN KEY (`id_estado_civil`)
+    REFERENCES `davivienda`.`estado_civil` (`id_estado_civil`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `davivienda`.`solicitud`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `davivienda`.`solicitud` (
+  `id_solicitud` BIGINT NOT NULL AUTO_INCREMENT,
+  `fecha_creacion` DATETIME(6) NULL DEFAULT NULL,
+  `monto` DOUBLE NULL DEFAULT NULL,
+  `plazo` INT NULL DEFAULT NULL,
+  `id_forma_pago` BIGINT NULL DEFAULT NULL,
+  `id_persona` BIGINT NULL DEFAULT NULL,
+  `forma_pago` INT NULL DEFAULT NULL,
+  `persona` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`id_solicitud`),
+  INDEX `FK45nd2b80696ccwo02d1l8d62i` (`id_forma_pago` ASC) VISIBLE,
+  INDEX `FKfj1l9krx3f6xqywhonolyjgp3` (`id_persona` ASC) VISIBLE,
+  CONSTRAINT `FK45nd2b80696ccwo02d1l8d62i`
+    FOREIGN KEY (`id_forma_pago`)
+    REFERENCES `davivienda`.`forma_pago` (`id_forma_pago`),
+  CONSTRAINT `FKfj1l9krx3f6xqywhonolyjgp3`
+    FOREIGN KEY (`id_persona`)
+    REFERENCES `davivienda`.`persona` (`id_persona`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
