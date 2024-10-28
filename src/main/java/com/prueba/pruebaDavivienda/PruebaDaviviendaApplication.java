@@ -1,0 +1,13 @@
+package com.prueba.pruebaDavivienda;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class PruebaDaviviendaApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(PruebaDaviviendaApplication.class, args);
+	}
+
+}
